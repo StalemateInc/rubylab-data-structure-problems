@@ -22,3 +22,6 @@ rotator = ArrayRotator.new(test_array)
 puts "Initial array: #{rotator.array}"
 rotator.rotate(12)
 puts "Resultant array: #{rotator.array}"
+
+# or we could just use an Array#rotate method
+# but I guess this is not a "use-a-method" task
