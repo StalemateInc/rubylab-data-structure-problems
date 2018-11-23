@@ -1,6 +1,6 @@
 class ArrayRotator
 
-  attr_reader :array
+  attr_accessor :array
   def initialize(array)
     @array = array
   end
@@ -9,7 +9,7 @@ class ArrayRotator
     k = k_times.to_i
     if k.positive?
       first = k % @array.length
-      @array = @array.slice!(first, @array.length-1).concat(@array)
+      @array = @array.slice!(first, @array.length - 1).concat(@array)
     else
       raise ArgumentError, 'Zero or negative argument given, positive k expected.'
     end
