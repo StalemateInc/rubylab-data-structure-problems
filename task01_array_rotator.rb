@@ -9,7 +9,7 @@ class ArrayRotator
     k = k_times.to_i
     if k.positive?
       first = k % @array.length
-      @array = @array.slice!(first, @array.length - 1).concat(@array)
+      @array = @array.slice!(-first, @array.length).concat(@array)
     else
       raise ArgumentError, 'Zero or negative argument given, positive k expected.'
     end
@@ -17,10 +17,10 @@ class ArrayRotator
 
 end
 
-test_array = [1, 2, 3, 4, 5, 6, 7, 8]
+test_array = [1, 2, 3, 4, 5, 6, 7]
 rotator = ArrayRotator.new(test_array)
 puts "Initial array: #{rotator.array}"
-rotator.rotate(12)
+rotator.rotate(10)
 puts "Resultant array: #{rotator.array}"
 
 # or we could just use an Array#rotate method
