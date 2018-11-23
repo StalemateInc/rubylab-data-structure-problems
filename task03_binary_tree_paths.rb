@@ -39,6 +39,7 @@ class BinarySearchTree
     paths
   end
 
+  private
   def get_path(node, path, paths)
     return if node.nil?
 
