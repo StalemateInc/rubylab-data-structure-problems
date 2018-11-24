@@ -2,7 +2,7 @@ class ArrayRotator
 
   attr_accessor :array
   def initialize(array)
-    @array = array
+    @array = array.clone
   end
 
   def rotate(k_times)
