@@ -13,24 +13,23 @@ class TreeNode
 end
 
 class BinarySearchTree
-  attr_reader :root
+  attr_reader :root, :values
 
   def initialize(initial)
+    @values = []
     if initial.instance_of? Array
-      @root = TreeNode.new(initial.shift)
-      initial.each(&method(:insert))
-    else
-      @root = TreeNode.new(initial)
-    end
+      raise ArgumentError, 'Can\'t initialize binary tree from an empty array.' if initial.empty?
 
+      init_values = initial.uniq
+      init_values.each(&method(:insert))
+    else
+      insert(initial)
+    end
   end
 
   def insert(value, node = @root)
-    if value < node.val
-      node.left ? insert(value, node.left) : node.left = TreeNode.new(value)
-    elsif value > node.val
-      node.right ? insert(value, node.right) : node.right = TreeNode.new(value)
-    end
+    insert_and_memorize(value, node)
+    @values.push(value)
   end
 
   def binary_tree_paths(root = @root)
@@ -39,7 +38,29 @@ class BinarySearchTree
     paths
   end
 
+  def find(target)
+    node = @root
+    stack = []
+    until node.nil?
+      stack.push(node.val)
+      break if target == node.val
+
+      node = target < node.val ? node.left : node.right
+    end
+    stack.last == target ? stack.join('->') : nil
+  end
+
   private
+  def insert_and_memorize(value, node)
+    return @root = TreeNode.new(value) if @root.nil?
+
+    if value < node.val
+      node.left ? insert_and_memorize(value, node.left) : node.left = TreeNode.new(value)
+    elsif value > node.val
+      node.right ? insert_and_memorize(value, node.right) : node.right = TreeNode.new(value)
+    end
+  end
+
   def get_path(node, path, paths)
     return if node.nil?
 
